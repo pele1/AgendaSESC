@@ -23,10 +23,13 @@
         android:orderInCategory="110"
         android:icon="@drawable/ic_menu_facilities"
         android:title="@string/menu_unidades" />
+    
+     <!-- No about window available yet -->
     <item
         android:id="@+id/menu_about"
         android:orderInCategory="120"
         android:icon="@drawable/ic_menu_about"
+        android:visible="false"
         android:title="@string/menu_about" />
     <!--  item
         android:id="@+id/menu_settings"
