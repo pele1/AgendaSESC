@@ -373,7 +373,7 @@ public class PageViewActivity extends SherlockFragmentActivity implements
 	// load SESC SP site
 	public void loadSescSiteClick(View v) {
 		this.startActivity(
-				new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.sescsp.org.br")));
+				new Intent(Intent.ACTION_VIEW, Uri.parse(AgendaSESC.urlDomain)));
 	}
 	
 	

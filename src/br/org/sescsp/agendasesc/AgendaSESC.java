@@ -81,7 +81,7 @@ public class AgendaSESC {
      
     // private int[] facilities; 
 
-    private static final String urlDomain = "http://www.sescsp.org.br/";
+    public static final String urlDomain = "http://www.sescsp.org.br/";
     private static final String urlComplement = "/ajax/filtro.action?";
     
     
