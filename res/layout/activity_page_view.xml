@@ -1,0 +1,109 @@
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+  
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:textAlignment="gravity" />
+
+	<LinearLayout
+	    android:id="@+id/bottomNav"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    android:orientation="horizontal" 
+	    android:background="@color/abs__background_holo_dark">
+
+    <ImageButton
+        android:id="@+id/imgNavBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:src="@drawable/navigation_back"
+        android:background="@color/abs__background_holo_dark"
+        android:layout_gravity="left" />
+
+    <br.org.sescsp.agendasesc.FontFitTextView
+        android:id="@+id/txtDate"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="01/07/2013"
+        android:textAlignment="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/abs__primary_text_holo_dark" />
+  
+    <ImageButton
+        android:id="@+id/imgNavForw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:src="@drawable/navigation_forward"
+        android:background="@color/abs__background_holo_dark" 
+        android:layout_gravity="right" />
+    </LinearLayout>
+	<LinearLayout
+	    android:id="@+id/splashScreen"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_centerHorizontal="true"
+	    android:visibility="invisible"
+	    android:layout_marginTop="79dp"
+	    android:layout_alignParentTop="true" 
+	    android:orientation="vertical" > 
+	    
+	<ImageView
+	    android:id="@+id/sescLogo"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center_horizontal"
+	    android:adjustViewBounds="true"
+	    android:maxWidth="250dp"
+	    android:paddingBottom="10dp"
+	    android:scaleType="fitXY"
+	    android:src="@drawable/sesc_logo" />
+
+	<LinearLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center_horizontal"
+	    android:orientation="horizontal" > 
+
+	<ProgressBar
+	    android:id="@+id/progressBar2"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center_vertical"
+	    android:maxHeight="30dp"
+	    android:maxWidth="30dp"
+	    android:minHeight="5dip"
+	    android:minWidth="5dip"
+	    android:paddingRight="5dp" />
+
+	<TextView
+	    android:id="@+id/textView1"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center_vertical"
+	    android:text="Carregando programação..." />
+	</LinearLayout>
+	<TextView
+	    android:id="@+id/splashDiscplaimer"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:gravity="center"
+	    android:textColor="@android:color/darker_gray"
+	    android:layout_gravity="center_horizontal"
+	    android:layout_marginTop="70dp"
+		android:layout_marginLeft="16dp"
+		android:layout_marginRight="16dp"
+	    android:text="@string/splash_disclaimer" />
+
+	</LinearLayout>
+</RelativeLayout>

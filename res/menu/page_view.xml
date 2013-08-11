@@ -1,0 +1,37 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/menu_event"
+          android:title="@string/action_options_event"
+          android:icon="@drawable/ic_action_refresh"
+          android:showAsAction="ifRoom|collapseActionView" />
+    
+    <!-- Search function is currently buggy. Therefore is hidden for now -->
+    <item android:id="@+id/menu_search"
+          android:title="@string/menu_search"
+          android:icon="@drawable/abs__ic_search"
+          android:visible="false"
+          android:showAsAction="ifRoom|collapseActionView"
+          android:actionViewClass="android.widget.SearchView" />
+     
+    <item
+        android:id="@+id/menu_atividades"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_menu_categories"
+        android:title="@string/menu_atividades" />
+    
+    <item
+        android:id="@+id/menu_unidades"
+        android:orderInCategory="110"
+        android:icon="@drawable/ic_menu_facilities"
+        android:title="@string/menu_unidades" />
+    <item
+        android:id="@+id/menu_about"
+        android:orderInCategory="120"
+        android:icon="@drawable/ic_menu_about"
+        android:title="@string/menu_about" />
+    <!--  item
+        android:id="@+id/menu_settings"
+        android:orderInCategory="110"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:showAsAction="never"
+        android:title="@string/menu_settings" /  -->
+</menu>
