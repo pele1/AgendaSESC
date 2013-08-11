@@ -84,3 +84,9 @@
 # view res/layout/activity_show_image.xml #generated:8
 -keep class it.sephiroth.android.library.imagezoom.ImageViewTouch { <init>(...); }
 
+# onClick res/layout/activity_page_view.xml #generated:61
+-keepclassmembers class * { *** hideSplashClick(...); }
+
+# onClick res/layout/activity_page_view.xml #generated:98
+-keepclassmembers class * { *** loadSescSiteClick(...); }
+

@@ -139,8 +139,7 @@ public class AgendaSESC {
 	    newAgenda.groupBy = groupBy;
 	    newAgenda.currentItemPointer = currentItemPointer;
 	    newAgenda.categoriesSelected = categoriesSelected;
-	    newAgenda.facilitiesSelected = facilitiesSelected;	    
-	    //newAgenda.categoriesSelectedCnt = categoriesSelectedCnt;
+	    newAgenda.facilitiesSelected = facilitiesSelected;	    ;
 	    return newAgenda;
 	}
 	

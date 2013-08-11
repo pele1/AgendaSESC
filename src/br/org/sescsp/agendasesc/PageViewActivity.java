@@ -32,11 +32,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,8 +46,10 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import br.org.sescsp.infosesc.R;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -89,6 +93,7 @@ public class PageViewActivity extends SherlockFragmentActivity implements
 	// private WebView finishedWebView;
 	boolean loadingFinished = true;
 	boolean redirect = false;
+	boolean showingSplash = false;
 
 	private AQuery a;
 	private Helper h;
@@ -141,7 +146,7 @@ public class PageViewActivity extends SherlockFragmentActivity implements
 		a.id(R.id.imgNavForw).clickable(true).clicked(this, "navForwClick");
 		a.id(R.id.txtDate).clickable(true).clicked(this, "footerClick");
 
-		// show today date in lower bar
+		// show today date/item description in lower bar
 		a.id(R.id.txtDate).text(showAgenda.getItemString());
 
 		// initializing the page models
@@ -168,6 +173,7 @@ public class PageViewActivity extends SherlockFragmentActivity implements
 
 	// show splash start screen
     private void showSplash() {
+    	showingSplash = true;
 		getSupportActionBar().hide();
 		a.id(R.id.viewpager).invisible();
 		a.id(R.id.bottomNav).invisible();
@@ -178,13 +184,18 @@ public class PageViewActivity extends SherlockFragmentActivity implements
 			@Override
 			public void run() {
 				// hide splash screen
-				getSupportActionBar().show();
-				a.id(R.id.viewpager).visible();
-				a.id(R.id.bottomNav).visible();
-				a.id(R.id.splashScreen).invisible();
-				showMsgProgramType();
+				hideSplash();
+		    	showMsgProgramType();
 			}
 		}, 6000);
+    }
+    
+    private void hideSplash() {	
+    	showingSplash = false;
+    	getSupportActionBar().show();
+    	a.id(R.id.viewpager).visible();
+    	a.id(R.id.bottomNav).visible();
+    	a.id(R.id.splashScreen).invisible();
     }
 	
     @Override
@@ -199,6 +210,28 @@ public class PageViewActivity extends SherlockFragmentActivity implements
 		inflater.inflate(R.menu.page_view, menu);
 		return true;
 	}
+	
+	// disable menu if showing splash screen
+	@Override
+	 public boolean onPrepareOptionsMenu (Menu menu) {
+		 boolean returnCode =  super.onPrepareOptionsMenu(menu);
+		 
+	     MenuItem aboutMenuItem = menu.findItem(R.id.menu_about);
+	     aboutMenuItem.setVisible(!showingSplash);
+	     return returnCode;
+	 }
+	
+	// while showing splash just close (not the activity) it when using back-button
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if (keyCode == KeyEvent.KEYCODE_BACK && showingSplash ) {
+	        hideSplash();
+	        return true;
+	    }
+	    return super.onKeyDown(keyCode, event);
+	}
+
+
 	
 		
 	// handle option item clicks: flip, search, atividades, settings
@@ -215,6 +248,10 @@ public class PageViewActivity extends SherlockFragmentActivity implements
 			break;
 		case R.id.menu_unidades:
 			showFacilitySelection();
+			break;
+		case R.id.menu_about:
+			showAboutScreen();
+			
 			break;
 		/*case R.id.menu_settings:
 			startActivity(new Intent(PageViewActivity.this,
@@ -328,6 +365,18 @@ public class PageViewActivity extends SherlockFragmentActivity implements
 
 	}
 
+	// hide splash screen
+	public void hideSplashClick(View v) {
+		hideSplash();
+	}
+	
+	// load SESC SP site
+	public void loadSescSiteClick(View v) {
+		this.startActivity(
+				new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.sescsp.org.br")));
+	}
+	
+	
 // ------------- CLICK HANDLERS END
 
 	public void showCategorySelection() {
@@ -340,6 +389,23 @@ public class PageViewActivity extends SherlockFragmentActivity implements
 		Intent facilitySelectIntent = new Intent(PageViewActivity.this, FacilitySelectActivity.class);
 		facilitySelectIntent.putExtra(SEL_MSG, showAgenda.facilitiesSelected);
 		startActivityForResult(facilitySelectIntent, FACILITY_SEL_REQ);
+	}
+	
+	
+	public void showAboutScreen() {
+		showingSplash = true;
+		a.id(R.id.viewpager).invisible();
+		a.id(R.id.bottomNav).invisible();
+		a.id(R.id.splashScreen).visible();
+		a.id(R.id.loadingContentAdvice).invisible();
+		
+		TextView splashText = a.id(R.id.splashDisclaimer).getTextView();
+		splashText.setTextColor(Color.BLACK);
+		splashText.setTextSize((float)18.0);
+		
+		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+		lp.setMargins(10, 0, 10, 0);
+		a.getView().setLayoutParams(lp);
 	}
 	
 	@Override
@@ -547,18 +613,22 @@ public class PageViewActivity extends SherlockFragmentActivity implements
 			currentPage.progressBar = progressBar;
 			// progressBar.setVisibility(View.VISIBLE);
 
-			if (webView1 != null) {
+			if (webView1 != null && webView2 != null) {
 				webView1.setWebViewClient(new MyWebClient(progressBar));
 				webView1.getSettings().setCacheMode(
 						WebSettings.LOAD_CACHE_ELSE_NETWORK);
+				//webView1.getSettings().setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);			
+				
 				webView2.setWebViewClient(new MyWebClient(progressBar));
 				webView2.getSettings().setCacheMode(
 						WebSettings.LOAD_CACHE_ELSE_NETWORK);
+				//webView2.getSettings().setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);	
+
 				loadURL(webView1, currentPage.myAgenda1.getURL());
 				if (position == PAGE_MIDDLE) {
 					loadURL(webView2, alternativeAgenda.getURL());
 				}
-
+				
 				// disable horizontal scrolling
 				/*
 				 * OnTouchListener myTouchListener = new View.OnTouchListener()
@@ -616,7 +686,9 @@ public class PageViewActivity extends SherlockFragmentActivity implements
 								.replaceAll(
 										"(<a href=\")([^\"]*)(\" title=\"saiba mais\" class=\"frame_overflow_img\">[^<]*<img src=\")([^\"]*)(\")",
 										"$1$4$3$4$5");
-
+						
+						// replace img-width
+						//html = html.replace("<img width=\"354\"","<img width=\"50%\"");
 						// only open new browser if "saiba mais" button clicked
 						// (mark url with "?button")
 						html = html

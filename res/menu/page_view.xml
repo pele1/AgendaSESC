@@ -29,7 +29,7 @@
         android:id="@+id/menu_about"
         android:orderInCategory="120"
         android:icon="@drawable/ic_menu_about"
-        android:visible="false"
+        android:visible="true"
         android:title="@string/menu_about" />
     <!--  item
         android:id="@+id/menu_settings"

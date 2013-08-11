@@ -17,7 +17,7 @@
     <string name="menu_search">Procurar</string>
     <string name="title_activity_page_view">AgendaSESC</string>
     <string name="title_activity_select_category">Escolha as categorias</string>
-    <string name="splash_disclaimer">Este aplicativo é uma produção particular e independente, utilizando os dados fornecidos pelo site do SESC São Paulo.\n\nAutor: Steffen Retzlaff</string>
+    <string name="splash_disclaimer">Este aplicativo é uma produção particular e independente, utilizando os dados fornecidos pelo site do <u>SESC São Paulo</u>.\n\n<i>Autor: Steffen Retzlaff</i></string>
     <string name="title_activity_select_facility">Escolha as unidades</string>
     <string name="hello_world">Hello world!</string>
 
