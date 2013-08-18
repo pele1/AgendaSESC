@@ -28,6 +28,7 @@ import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.Dialog;
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
@@ -38,10 +39,12 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -569,7 +572,15 @@ public class PageViewActivity extends SherlockFragmentActivity implements
 	}
 	
 	private class MyPagerAdaper extends PagerAdapter {
-
+		final static int WEB_WIDTH = 380;
+		
+		private int getScale(){
+		    Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay(); 
+		    int width = display.getWidth(); 
+		    Double val = new Double(width)/new Double(WEB_WIDTH);
+		    val = val * 100d;
+		    return val.intValue();
+		}
 		@Override
 		public int getItemPosition(Object object) {
 			return POSITION_NONE;
@@ -618,12 +629,20 @@ public class PageViewActivity extends SherlockFragmentActivity implements
 				webView1.getSettings().setCacheMode(
 						WebSettings.LOAD_CACHE_ELSE_NETWORK);
 				//webView1.getSettings().setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);			
+			    
+				//webView1.getSettings().setLoadWithOverviewMode(true);
+			    //webView1.getSettings().setUseWideViewPort(true);
+				webView1.setInitialScale((int)Math.round(getScale()*1.005));
 				
 				webView2.setWebViewClient(new MyWebClient(progressBar));
 				webView2.getSettings().setCacheMode(
 						WebSettings.LOAD_CACHE_ELSE_NETWORK);
 				//webView2.getSettings().setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);	
-
+				
+				//webView2.getSettings().setLoadWithOverviewMode(true);
+			    //webView2.getSettings().setUseWideViewPort(true);
+				webView2.setInitialScale((int)Math.round(getScale()*1.00));
+				
 				loadURL(webView1, currentPage.myAgenda1.getURL());
 				if (position == PAGE_MIDDLE) {
 					loadURL(webView2, alternativeAgenda.getURL());

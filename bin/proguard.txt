@@ -1,22 +1,22 @@
 # view res/layout/activity_page_view.xml #generated:8
 -keep class android.support.v4.view.ViewPager { <init>(...); }
 
-# view AndroidManifest.xml #generated:47
+# view AndroidManifest.xml #generated:48
 -keep class br.org.sescsp.agendasesc.CategoriesSelectActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:56
+# view AndroidManifest.xml #generated:57
 -keep class br.org.sescsp.agendasesc.FacilitySelectActivity { <init>(...); }
 
 # view res/layout/activity_page_view.xml #generated:31
 -keep class br.org.sescsp.agendasesc.FontFitTextView { <init>(...); }
 
-# view AndroidManifest.xml #generated:17
+# view AndroidManifest.xml #generated:18
 -keep class br.org.sescsp.agendasesc.PageViewActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:33
+# view AndroidManifest.xml #generated:34
 -keep class br.org.sescsp.agendasesc.SettingsActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:39
+# view AndroidManifest.xml #generated:40
 -keep class br.org.sescsp.agendasesc.ShowImageActivity { <init>(...); }
 
 # view res/layout/abs__screen_action_bar.xml #generated:43
