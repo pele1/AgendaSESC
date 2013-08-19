@@ -21,7 +21,6 @@
             android:layout_height="fill_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:padding="10dp"
             android:visibility="visible"
              />
      <WebView
@@ -30,7 +29,6 @@
             android:layout_height="fill_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:padding="10dp"
             android:visibility="invisible"
              />
 

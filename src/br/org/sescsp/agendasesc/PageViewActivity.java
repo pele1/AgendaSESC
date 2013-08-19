@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.util.Calendar;
 import java.util.regex.Matcher;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.Dialog;
@@ -571,13 +572,14 @@ public class PageViewActivity extends SherlockFragmentActivity implements
 			}
 	}
 	
+	@SuppressLint("SetJavaScriptEnabled")
 	private class MyPagerAdaper extends PagerAdapter {
-		final static int WEB_WIDTH = 380;
+		final static int WEB_WIDTH = 360;
 		
 		private int getScale(){
 		    Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay(); 
 		    int width = display.getWidth(); 
-		    Double val = new Double(width)/new Double(WEB_WIDTH);
+		    Double val = Double.valueOf(width) / Double.valueOf(WEB_WIDTH);
 		    val = val * 100d;
 		    return val.intValue();
 		}
@@ -628,20 +630,24 @@ public class PageViewActivity extends SherlockFragmentActivity implements
 				webView1.setWebViewClient(new MyWebClient(progressBar));
 				webView1.getSettings().setCacheMode(
 						WebSettings.LOAD_CACHE_ELSE_NETWORK);
+				//webView1.getSettings().setJavaScriptEnabled(true);
+
 				//webView1.getSettings().setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);			
 			    
 				//webView1.getSettings().setLoadWithOverviewMode(true);
 			    //webView1.getSettings().setUseWideViewPort(true);
-				webView1.setInitialScale((int)Math.round(getScale()*1.005));
+				webView1.setInitialScale(getScale());
 				
 				webView2.setWebViewClient(new MyWebClient(progressBar));
 				webView2.getSettings().setCacheMode(
 						WebSettings.LOAD_CACHE_ELSE_NETWORK);
+				//webView2.getSettings().setJavaScriptEnabled(true);
+				
 				//webView2.getSettings().setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);	
 				
 				//webView2.getSettings().setLoadWithOverviewMode(true);
 			    //webView2.getSettings().setUseWideViewPort(true);
-				webView2.setInitialScale((int)Math.round(getScale()*1.00));
+				webView2.setInitialScale(getScale());
 				
 				loadURL(webView1, currentPage.myAgenda1.getURL());
 				if (position == PAGE_MIDDLE) {
@@ -719,7 +725,7 @@ public class PageViewActivity extends SherlockFragmentActivity implements
 						String htmlHeader = Helper.convertStreamToString(is);
 
 						html = htmlHeader + html
-								+ "<br /><br /><br /><br /></html>";
+								+ "<br /><br /><br /><br /></body></html>";
 						myWebView.loadDataWithBaseURL(
 								"http://www.sescsp.org.br/programacao/ajax/",
 								html, "text/html", null, myUrl);
